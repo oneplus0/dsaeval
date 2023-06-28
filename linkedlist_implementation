@@ -1,0 +1,103 @@
+#include<iostream>
+using namespace std;
+
+
+class node{
+    public:
+    int data;
+    node * next;
+
+
+    node(int val){
+        data=val;
+        next=NULL;
+    }
+};
+
+void insertathead(node * &head, int val){
+    node *n = new node(val);
+    node *temp=head;
+    if(head==NULL){
+        head=n;
+        return ;
+    }
+    else{
+        n->next=head;
+        head=n;
+    }
+}
+
+void insertatTail(node * &head , int val){
+    node *n=new node(val);
+    node *temp=head;
+
+    if(head==NULL){
+        head=n;
+        return ;
+    }
+
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=n;
+    
+}
+
+void printlist(node * &head){
+   node *temp=head;
+
+   while(temp!=NULL){
+    cout<<temp->data<<"_";
+    temp=temp->next;
+   }
+   cout<<endl;
+}
+void del(node * &head, int val){
+        
+        node *temp=head;
+
+        if(temp->data==val){
+            head=head->next;
+            return ;
+        }
+
+        while(temp!=NULL && temp->next!=NULL){
+            if(temp->next->data==val){
+                temp->next=temp->next->next;
+            }
+            temp=temp->next;
+            return ;
+        }
+     
+        
+
+}
+void deletemiddle(node *head){
+    int counter=0;
+    node *ptr=head;
+    while(ptr!=NULL){
+        counter++;
+        ptr=ptr->next;
+    }
+    
+}
+
+
+int main(){
+
+node *head=NULL;
+
+insertatTail(head, 1);
+insertatTail(head, 2);
+insertatTail(head, 3);
+insertatTail(head, 4);
+insertatTail(head, 5);
+//insertathead(head,10);
+printlist(head);
+//del(head,30);
+int n=2;
+    deletemiddle(head);
+
+
+
+}
