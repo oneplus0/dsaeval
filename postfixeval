@@ -1,0 +1,61 @@
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+using namespace std;
+
+#define MAX_SIZE 100
+
+
+bool isOperand(char c) {
+    return isdigit(c);
+}
+
+
+int performOperation(char operation, int a, int b) {
+    switch (operation) {
+        case '+':
+            return a + b;
+        case '-':
+            return a - b;
+        case '*':
+            return a * b;
+        case '/':
+            return a / b;
+        default:
+            return 0;
+    }
+}
+
+int evaluatePostfix(string postfix) {
+    int stack[MAX_SIZE];
+    int top = -1;
+
+    for (int i = 0; i < postfix.length(); i++) {
+        char currentChar = postfix[i];
+
+      
+        if (isOperand(currentChar))
+            stack[++top] = currentChar - '0'; 
+        else {
+            
+            int b = stack[top--];
+            int a = stack[top--];
+            int result = performOperation(currentChar, a, b);
+            stack[++top] = result;
+        }
+    }
+
+    return stack[top];
+}
+
+int main() {
+    string postfixExpression;
+    cout << "Enter the postfix expression: ";
+    
+    cin>>postfixExpression;
+    int result = evaluatePostfix(postfixExpression);
+
+    cout << "Result: " << result << endl;
+
+    return 0;
+}
